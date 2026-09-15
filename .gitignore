@@ -12,10 +12,7 @@ env/
 
 # Data
 data/raw/
-data/processed/
 
-# Trained models
-models/
 
 # Generated outputs
 outputs/
@@ -28,3 +25,14 @@ outputs/
 
 # VS Code
 .vscode/
+
+# Lightning logs (ملفات تدريب ضخمة)
+lightning_logs/
+
+# Backups
+*backup*
+*_backup*
+
+# Test files
+test.ipynb
+scratch*.ipynb
