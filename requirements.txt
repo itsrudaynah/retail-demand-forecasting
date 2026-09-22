@@ -1,0 +1,25 @@
+# Core data analysis
+pandas
+numpy
+matplotlib
+seaborn
+
+# Machine learning
+scikit-learn
+xgboost
+lightgbm
+
+# Parquet / data storage
+pyarrow
+
+# DeepAR
+torch
+pytorch-forecasting
+lightning
+
+# Notebook environment
+jupyter
+ipykernel
+
+# Application
+streamlit
