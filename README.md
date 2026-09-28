@@ -66,7 +66,7 @@ This project uses the [Store Sales — Time Series Forecasting](https://www.kagg
 4. Extract the downloaded ZIP file.
 5. Place the following CSV files directly inside the project's `data/raw/` directory.
 
-```text
+``` text
 data/
 └── raw/
     ├── train.csv
@@ -75,7 +75,7 @@ data/
     ├── oil.csv
     ├── holidays_events.csv
     ├── transactions.csv
-    ```
+```
 
 ---
 
