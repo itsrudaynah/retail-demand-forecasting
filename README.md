@@ -15,6 +15,16 @@
   <img src="https://img.shields.io/badge/Jupyter-Notebook-F37626?style=flat-square&logo=jupyter&logoColor=white" alt="Jupyter Notebook" />
 </p>
 
+## Table of Contents
+
+- [Project Overview](#project-overview)
+- [Dataset](#dataset)
+- [Project Structure](#project-structure)
+- [Notebook Execution Guide](#notebook-execution-guide)
+- [Installation](#installation)
+- [Streamlit Application](#streamlit-application)
+- [Reproducibility](#reproducibility)
+
 ## Project Overview
 
 This project develops an end-to-end retail demand forecasting pipeline using the **Kaggle Store Sales — Time Series Forecasting** dataset from Ecuador.
@@ -70,40 +80,16 @@ retail-demand-forecasting/
 ├── app/
 │  └── app.py
 │
-├── docs/
-│   └── Streamlit_images/
-│       ├── streamlit_dashboard.png
-│       ├── streamlit_forecast.png
-│       ├── streamlit_replenishment.png
-│       ├── streamlit_ModelLab.png
-│       └── streamlit_ProjectStory.png
-│
 ├── data/
 │   ├── raw/
 │   └── processed/
 │
 ├── docs/
+│   ├── Notebook_images/
 │   └── Streamlit_images/
-│       ├── morrow_logo.png
-│       ├── streamlit_dashboard.png
-│       ├── streamlit_forecast.png
-│       ├── streamlit_replenishment.png
-│       ├── streamlit_ModelLab.png
-│       └── streamlit_ProjectStory.png
+│
 ├── models/
-│   ├── deepar_full_trained.ckpt
-│   └── epoch=4-step=22655.ckpt
-│
 ├── notebooks/
-│   ├── 01_data_cleaning_eda.ipynb
-│   ├── 02_validation_evaluation_framework.ipynb
-│   ├── 03_forecasting_models.ipynb
-│   ├── 04_DeepAR_training.ipynb
-│   ├── 05_DeepAR.ipynb
-│   ├── 06_demand_pattern_evaluation.ipynb
-│   ├── 07_final_forecast.ipynb
-│   └── 08_replenishment_analysis.ipynb
-│
 ├── outputs/
 ├── predictions/
 ├── src/
