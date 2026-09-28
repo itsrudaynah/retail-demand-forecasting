@@ -56,20 +56,25 @@ Forecasting is performed at the **Store × Product Family** level.
 
 ## Dataset
 
-The project uses the Ecuadorian retail sales dataset containing:
+This project uses the [Store Sales — Time Series Forecasting](https://www.kaggle.com/competitions/store-sales-time-series-forecasting/data) dataset from Kaggle, provided by Corporación Favorita, an Ecuadorian grocery retailer.
 
-- `train.csv` — historical sales
-- `test.csv` — forecast dates and known features
-- `stores.csv` — store metadata
-- `oil.csv` — daily oil prices
-- `holidays_events.csv` — holidays and events
-- `transactions.csv` — store transaction counts
-- `sample_submission.csv` — Kaggle submission format
+### Download Instructions
 
-The dataset contains **54 stores** and **33 product families**, giving **1,782 possible Store × Family combinations**.
+1. Visit the [Kaggle dataset page](https://www.kaggle.com/competitions/store-sales-time-series-forecasting/data).
+2. Sign in to your Kaggle account and accept the competition rules if prompted.
+3. Download the dataset using **Download All**.
+4. Extract the downloaded ZIP file.
+5. Place the following CSV files directly inside the project's `data/raw/` directory.
 
-The modeling and evaluation pipeline uses **1,728 supported series** according to the project's evaluation rules.
-
+```text
+data/
+└── raw/
+    ├── train.csv
+    ├── test.csv
+    ├── stores.csv
+    ├── oil.csv
+    ├── holidays_events.csv
+    ├── transactions.csv
 ---
 
 ## Project Structure
