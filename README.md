@@ -78,20 +78,39 @@ The modeling and evaluation pipeline uses **1,728 supported series** according t
 retail-demand-forecasting/
 │
 ├── app/
-│
-├── data/
-│   ├── raw/
-│   └── processed/
+│   └── app.py
 │
 ├── docs/
+│   ├── morrow_logo.png
 │   ├── Notebook_images/
 │   └── Streamlit_images/
 │
 ├── models/
+│   ├── deepar_full_trained.ckpt
+│   └── epoch=4-step=22655.ckpt
+│
 ├── notebooks/
+│   ├── 01_data_cleaning_eda.ipynb
+│   ├── 02_validation_evaluation_framework.ipynb
+│   ├── 03_forecasting_models.ipynb
+│   ├── 04_DeepAR_training.ipynb
+│   ├── 05_DeepAR.ipynb
+│   ├── 06_demand_pattern_evaluation.ipynb
+│   ├── 07_final_forecast.ipynb
+│   └── 08_replenishment_analysis.ipynb
+│
 ├── outputs/
+│   ├── forecasts/
+│   └── [evaluation & replenishment results]
+│
 ├── predictions/
+│   ├── deepar_predictions.parquet
+│   ├── final_deepar_forecast.csv
+│   └── final_deepar_forecast.parquet
+│
 ├── src/
+│   ├── __init__.py
+│   └── evaluation.py
 │
 ├── .gitignore
 ├── requirements.txt
