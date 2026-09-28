@@ -2,7 +2,6 @@
   <img src="docs/morrow_logo.png" alt="Morrow logo" width="220" />
 </p>
 
-<h1 align="center">Morrow</h1>
 <p align="center"><strong>Retail Demand Forecasting</strong></p>
 
 <p align="center">
