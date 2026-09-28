@@ -78,7 +78,6 @@ The modeling and evaluation pipeline uses **1,728 supported series** according t
 retail-demand-forecasting/
 │
 ├── app/
-│  └── app.py
 │
 ├── data/
 │   ├── raw/
@@ -93,7 +92,6 @@ retail-demand-forecasting/
 ├── outputs/
 ├── predictions/
 ├── src/
-│   └── evaluation.py
 │
 ├── .gitignore
 ├── requirements.txt
