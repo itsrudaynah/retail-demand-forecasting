@@ -75,6 +75,8 @@ data/
     ├── oil.csv
     ├── holidays_events.csv
     ├── transactions.csv
+    ```
+
 ---
 
 ## Project Structure
