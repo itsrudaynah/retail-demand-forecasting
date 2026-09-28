@@ -1,0 +1,457 @@
+<p align="center">
+  <img src="docs/morrow_logo.png" alt="Morrow logo" width="440" />
+</p>
+
+<p align="center"><strong>Retail Demand Forecasting</strong></p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white" alt="Python" />
+  <img src="https://img.shields.io/badge/Pandas-150458?style=flat-square&logo=pandas&logoColor=white" alt="Pandas" />
+  <img src="https://img.shields.io/badge/NumPy-013243?style=flat-square&logo=numpy&logoColor=white" alt="NumPy" />
+  <img src="https://img.shields.io/badge/XGBoost-EC6B23?style=flat-square" alt="XGBoost" />
+  <img src="https://img.shields.io/badge/LightGBM-2E8B57?style=flat-square" alt="LightGBM" />
+  <img src="https://img.shields.io/badge/DeepAR-Probabilistic%20Forecasting-4C78A8?style=flat-square" alt="DeepAR" />
+  <img src="https://img.shields.io/badge/Streamlit-FF4B4B?style=flat-square&logo=streamlit&logoColor=white" alt="Streamlit" />
+  <img src="https://img.shields.io/badge/Jupyter-Notebook-F37626?style=flat-square&logo=jupyter&logoColor=white" alt="Jupyter Notebook" />
+</p>
+
+## Table of Contents
+
+- [Project Overview](#project-overview)
+- [Dataset](#dataset)
+- [Project Structure](#project-structure)
+- [Notebook Execution Guide](#notebook-execution-guide)
+- [Installation](#installation)
+- [Streamlit Application](#streamlit-application)
+- [Reproducibility](#reproducibility)
+
+## Project Overview
+
+This project develops an end-to-end retail demand forecasting pipeline using the **Kaggle Store Sales — Time Series Forecasting** dataset from Ecuador.
+
+The project covers:
+
+- Data cleaning and exploratory analysis
+- Time-series validation
+- Baseline and machine-learning forecasting
+- Hyperparameter tuning
+- DeepAR probabilistic forecasting
+- Demand-pattern evaluation and error analysis
+- Final 15-day forecasting
+- Replenishment analysis
+
+Forecasting is performed at the **Store × Product Family** level.
+
+### Final Forecast Setup
+
+- Forecast horizon: **15 days**
+- Validation period: **August 1–15, 2017**
+- Final forecast period: **August 16–30, 2017**
+- Evaluation/forecast series: **1,728 Store × Family series**
+- Final forecast rows: **25,920**
+- Primary metric: **RMSLE**
+- Supporting metrics: **MAE, RMSE, WMAPE**
+
+---
+
+## Dataset
+
+The project uses the Ecuadorian retail sales dataset containing:
+
+- `train.csv` — historical sales
+- `test.csv` — forecast dates and known features
+- `stores.csv` — store metadata
+- `oil.csv` — daily oil prices
+- `holidays_events.csv` — holidays and events
+- `transactions.csv` — store transaction counts
+- `sample_submission.csv` — Kaggle submission format
+
+The dataset contains **54 stores** and **33 product families**, giving **1,782 possible Store × Family combinations**.
+
+The modeling and evaluation pipeline uses **1,728 supported series** according to the project's evaluation rules.
+
+---
+
+## Project Structure
+
+```text
+retail-demand-forecasting/
+│
+├── app/
+│   └── app.py
+│
+├── docs/
+│   ├── morrow_logo.png
+│   ├── Notebook_images/
+│   └── Streamlit_images/
+│
+├── models/
+│   ├── deepar_full_trained.ckpt
+│   └── epoch=4-step=22655.ckpt
+│
+├── notebooks/
+│   ├── 01_data_cleaning_eda.ipynb
+│   ├── 02_validation_evaluation_framework.ipynb
+│   ├── 03_forecasting_models.ipynb
+│   ├── 04_DeepAR_training.ipynb
+│   ├── 05_DeepAR.ipynb
+│   ├── 06_demand_pattern_evaluation.ipynb
+│   ├── 07_final_forecast.ipynb
+│   └── 08_replenishment_analysis.ipynb
+│
+├── outputs/
+│   ├── forecasts/
+│   └── [evaluation & replenishment results]
+│
+├── predictions/
+│   ├── deepar_predictions.parquet
+│   ├── final_deepar_forecast.csv
+│   └── final_deepar_forecast.parquet
+│
+├── src/
+│   ├── __init__.py
+│   └── evaluation.py
+│
+├── .gitignore
+├── requirements.txt
+└── README.md
+```
+
+---
+
+# Notebook Execution Guide
+
+The notebook numbers represent the recommended project workflow.
+
+```text
+01 Data Cleaning & EDA
+        ↓
+02 Validation & Evaluation Framework
+        ↓
+03 Forecasting Models
+        ↓
+04 DeepAR Training
+        ↓
+05 DeepAR Inference & Validation
+        ↓
+06 Demand Pattern Evaluation
+        ↓
+07 Final 15-Day Forecast
+        ↓
+08 Replenishment Analysis
+```
+
+For reproducibility, run notebooks from a clean kernel/session and use the execution environment specified for each notebook.
+
+---
+
+## 1. Data Cleaning & EDA
+
+### `01_data_cleaning_eda.ipynb`
+
+This notebook:
+
+- Loads the raw datasets
+- Checks missing values and duplicates
+- Validates dates and sales
+- Handles missing oil prices
+- Explores sales trends and demand behaviour
+- Analyzes product families, stores, weekdays, months, promotions, and holidays
+- Classifies demand patterns
+- Creates the prepared modeling datasets
+
+### Main outputs
+
+```text
+data/processed/train_df.parquet
+data/processed/valid_df.parquet
+```
+
+These files are used by the validation and forecasting notebooks.
+
+---
+
+## 2. Validation & Evaluation Framework
+
+### `02_validation_evaluation_framework.ipynb`
+
+This notebook verifies the shared validation and evaluation framework used by the forecasting stage.
+
+It checks:
+
+- Chronological train/validation splitting
+- 15-day validation horizon
+- Date separation and leakage checks
+- Store × Family series coverage
+- The documented evaluation-series exclusion rule
+- Shared metric calculations
+- Prediction handling rules
+
+The shared implementation is located in:
+
+```text
+src/evaluation.py
+```
+
+### Output
+
+This notebook is a **validation and verification stage**. It does not create a new modeling dataset. It verifies that the prepared datasets from Notebook 01 and the shared evaluation utilities are ready for the forecasting notebooks.
+
+---
+
+## 3. Forecasting Models
+
+### `03_forecasting_models.ipynb`
+
+This notebook evaluates:
+
+- Seasonal Naive
+- XGBoost
+- LightGBM
+- Tuned XGBoost
+- Tuned LightGBM
+
+The forecasting process uses chronological validation and recursive forecasting for the tree-based models.
+
+The shared evaluation function calculates:
+
+- RMSLE
+- MAE
+- RMSE
+- WMAPE
+
+### Main outputs
+
+Model prediction and comparison files are saved under:
+
+```text
+outputs/forecasts/
+```
+
+These outputs are used by the demand-pattern evaluation stage.
+
+---
+
+## 4. DeepAR Training
+
+### `04_DeepAR_training.ipynb`
+
+This notebook trains the DeepAR model.
+
+> **Execution Environment: Google Colab + GPU**
+
+DeepAR training is performed in **Google Colab using a GPU runtime**. Google Drive is mounted to access the project files and save the trained checkpoints.
+
+The training process uses two phases:
+
+1. Internal chronological validation to determine the training duration.
+2. Full training using the selected number of epochs.
+
+The final validation period remains unseen during training.
+
+### Main output
+
+```text
+models/deepar_full_trained.ckpt
+```
+
+---
+
+## 5. DeepAR Inference & Validation
+
+### `05_DeepAR.ipynb`
+
+> **Execution Environment: Google Colab / compatible DeepAR environment**
+
+This notebook:
+
+1. Loads the trained DeepAR checkpoint.
+2. Reconstructs the validation `TimeSeriesDataSet`.
+3. Generates forecasts for the validation horizon.
+4. Compares predictions with actual sales.
+5. Evaluates DeepAR performance.
+6. Saves the validation predictions.
+
+### Main output
+
+```text
+predictions/deepar_predictions.parquet
+```
+
+---
+
+## 6. Demand Pattern Evaluation
+
+### `06_demand_pattern_evaluation.ipynb`
+
+This notebook performs detailed model comparison and error analysis across:
+
+- Regular demand
+- Irregular demand
+- Intermittent demand
+
+It also evaluates:
+
+- Model performance by demand pattern
+- Intermittent-family performance
+- Largest forecast errors
+- Promotion, holiday, weekend, and sales-spike context
+- Overall model comparison
+- Baseline vs tuned models
+- Final model comparison
+
+The resulting evaluation files are saved under:
+
+```text
+outputs/
+```
+
+---
+
+## 7. Final 15-Day Forecast
+
+### `07_final_forecast.ipynb`
+
+> **Execution Environment: Google Colab / compatible DeepAR environment**
+
+This notebook uses the trained DeepAR model to generate the final 15-day forecast for:
+
+```text
+2017-08-16 → 2017-08-30
+```
+
+The final forecast contains:
+
+- **1,728 Store × Family series**
+- **25,920 forecast rows**
+- 15 forecast dates
+
+### Main outputs
+
+```text
+predictions/final_deepar_forecast.parquet
+predictions/final_deepar_forecast.csv
+```
+
+---
+
+## 8. Replenishment Analysis
+
+### `08_replenishment_analysis.ipynb`
+
+This notebook converts the final forecast into Store × Family replenishment recommendations.
+
+### Assumptions
+
+- Lead time: **3 days**
+- Safety stock: **20% of expected lead-time demand**
+- Current stock is not included in the dataset and is therefore not deducted from the recommendation.
+
+### Main output
+
+```text
+outputs/replenishment_recommendations.csv
+```
+
+---
+
+## Local vs Google Colab
+
+Most project notebooks can be developed and executed locally using the project environment and `requirements.txt`.
+
+The DeepAR notebooks use a compatible PyTorch / PyTorch Forecasting environment. **DeepAR training is run in Google Colab with a GPU**, and the DeepAR inference and final forecast notebooks are intended to use the compatible Colab environment as well.
+
+The local notebooks and Colab notebooks use the same project structure and output paths.
+
+---
+
+## Installation
+
+Create a virtual environment and install the project dependencies:
+
+```bash
+python -m venv .venv
+```
+
+Windows:
+
+```bash
+.venv\Scripts\activate
+```
+
+macOS/Linux:
+
+```bash
+source .venv/bin/activate
+```
+
+Then:
+
+```bash
+pip install -r requirements.txt
+```
+
+Launch Jupyter:
+
+```bash
+jupyter notebook
+```
+
+---
+
+## Streamlit Application
+
+The interactive dashboard is called **Morrow** and is built with Streamlit. It brings the final forecast, validation results, model comparison, and replenishment recommendations into one interface.
+
+### Dashboard pages
+
+- **Overview** — project KPIs, a selected Store × Product Family forecast, its replenishment recommendation, top replenishment priorities, and overall model comparison.
+![](docs/Streamlit_images/streamlit_dashboard.png)
+
+- **Forecast Explorer** — switch between the validation period and the final 15-day forecast; select a store and product family; inspect the chart and table; and download the selected results as CSV. Validation view includes RMSLE, MAE, RMSE, and WMAPE.
+![](docs/Streamlit_images/streamlit_forecast.png)
+
+- **Inventory Planner** — select a store and product family, enter current stock, and view the gross replenishment requirement and net order quantity, alongside lead-time demand and safety stock.
+![](docs/Streamlit_images/streamlit_replenishment.png)
+
+- **Model Lab** — compare overall validation metrics and RMSLE across Regular, Intermittent, and Irregular demand patterns.
+![](docs/Streamlit_images/streamlit_ModelLab.png)
+
+- **Project Story** — summarizes the project goal, final forecast, evaluation approach, and replenishment assumptions.
+![](docs/Streamlit_images/streamlit_ProjectStory.png)
+
+### Run the application
+
+From the project root, install the dependencies and start Streamlit:
+
+```bash
+pip install -r requirements.txt
+streamlit run app/app.py
+```
+
+The application reads these project outputs:
+
+```text
+predictions/final_deepar_forecast.parquet
+predictions/deepar_predictions.parquet
+outputs/replenishment_recommendations.csv
+outputs/final_model_comparison.csv
+outputs/pattern_level_metrics.csv
+```
+
+Generate these outputs by running the relevant notebooks before launching the application. The application expects the files at the paths shown above.
+
+---
+
+## Reproducibility
+
+For a clean project run:
+
+1. Clone the repository.
+2. Create a fresh virtual environment.
+3. Install `requirements.txt`.
+4. Run the notebooks in the documented order.
+5. Use Google Colab with GPU for the DeepAR training stage.
+6. Verify the generated outputs before running downstream notebooks.
+
+The expected final forecast contains **25,920 rows across 1,728 Store × Family series and 15 forecast dates**.
