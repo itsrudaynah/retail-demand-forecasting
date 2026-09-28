@@ -53,7 +53,15 @@ The modeling and evaluation pipeline uses **1,728 supported series** according t
 retail-demand-forecasting/
 │
 ├── app/
-│   └── app.py
+│  └── app.py
+│
+├── docs/
+│   └── Streamlit_images/
+│       ├── streamlit_dashboard.png
+│       ├── streamlit_forecast.png
+│       ├── streamlit_replenishment.png
+│       ├── streamlit_ModelLab.png
+│       └── streamlit_ProjectStory.png
 │
 ├── data/
 │   ├── raw/
