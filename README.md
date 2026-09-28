@@ -1,4 +1,20 @@
-# Retail Demand Forecasting
+<p align="center">
+  <img src="docs/morrow_logo.png" alt="Morrow logo" width="220" />
+</p>
+
+<h1 align="center">Morrow</h1>
+<p align="center"><strong>Retail Demand Forecasting</strong></p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white" alt="Python" />
+  <img src="https://img.shields.io/badge/Pandas-150458?style=flat-square&logo=pandas&logoColor=white" alt="Pandas" />
+  <img src="https://img.shields.io/badge/NumPy-013243?style=flat-square&logo=numpy&logoColor=white" alt="NumPy" />
+  <img src="https://img.shields.io/badge/XGBoost-EC6B23?style=flat-square" alt="XGBoost" />
+  <img src="https://img.shields.io/badge/LightGBM-2E8B57?style=flat-square" alt="LightGBM" />
+  <img src="https://img.shields.io/badge/DeepAR-Probabilistic%20Forecasting-4C78A8?style=flat-square" alt="DeepAR" />
+  <img src="https://img.shields.io/badge/Streamlit-FF4B4B?style=flat-square&logo=streamlit&logoColor=white" alt="Streamlit" />
+  <img src="https://img.shields.io/badge/Jupyter-Notebook-F37626?style=flat-square&logo=jupyter&logoColor=white" alt="Jupyter Notebook" />
+</p>
 
 ## Project Overview
 
@@ -67,6 +83,14 @@ retail-demand-forecasting/
 │   ├── raw/
 │   └── processed/
 │
+├── docs/
+│   └── Streamlit_images/
+│       ├── morrow_logo.png
+│       ├── streamlit_dashboard.png
+│       ├── streamlit_forecast.png
+│       ├── streamlit_replenishment.png
+│       ├── streamlit_ModelLab.png
+│       └── streamlit_ProjectStory.png
 ├── models/
 │   ├── deepar_full_trained.ckpt
 │   └── epoch=4-step=22655.ckpt
