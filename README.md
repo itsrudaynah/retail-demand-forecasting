@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/morrow_logo.png" alt="Morrow logo" width="360" />
+  <img src="docs/morrow_logo.png" alt="Morrow logo" width="440" />
 </p>
 
 <p align="center"><strong>Retail Demand Forecasting</strong></p>
