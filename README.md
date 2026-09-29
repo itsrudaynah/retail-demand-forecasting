@@ -410,6 +410,8 @@ jupyter notebook
 
 The interactive dashboard is called **Morrow** and is built with Streamlit. It brings the final forecast, validation results, model comparison, and replenishment recommendations into one interface.
 
+🔗 **Live App:** [https://retail-demand-forecasting-morrow.streamlit.app/](https://retail-demand-forecasting-morrow.streamlit.app/)
+
 ### Dashboard pages
 
 - **Overview** — project KPIs, a selected Store × Product Family forecast, its replenishment recommendation, top replenishment priorities, and overall model comparison.
